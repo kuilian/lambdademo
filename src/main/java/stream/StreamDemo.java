@@ -9,15 +9,47 @@ import java.util.*;
  */
 public class StreamDemo {
     public static void main(String[] args) {
-//        List<Author> authors = getAuthors();
-//        System.out.println("authors = " + authors);
-//        test01(authors);
 
-        test05();
+
+        test09();
+    }
+
+    private static void test09() {
+
+    }
+
+    private static void test08() {
+        getAuthors()
+                .stream()
+
+                .flatMap(author -> author.getBooks().stream())
+                .distinct()
+                .forEach(au-> System.out.println(au));
+    }
+
+    private static void test07() {
+        getAuthors().stream()
+                .distinct()
+                .sorted(((o1, o2) -> o2.getAge()-o1.getAge()))
+                .skip(1)
+                .forEach(author -> System.out.println(author.getAge()));
+    }
+
+    private static void test06() {
+        getAuthors().stream()
+                .sorted(((o1, o2) -> o2.getAge()-o1.getAge()) )
+                .limit(2).forEach(author -> System.out.println(author.getAge()));
     }
 
     private static void test05() {
-
+        getAuthors().stream()
+                .distinct()
+                .sorted(new Comparator<Author>() {
+                    @Override
+                    public int compare(Author o1, Author o2) {
+                        return o2.getAge()-o1.getAge();
+                    }
+                }).forEach(author -> System.out.println(author.getAge()));
     }
 
     private static void test04() {
